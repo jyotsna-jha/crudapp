@@ -1,0 +1,148 @@
+/* SubmittedData.css */
+
+.table-container {
+  margin-top: 20px;
+  margin-left: 100px;
+  margin-right: 100px;
+  margin-bottom:100px;
+}
+
+.table-heading {
+  text-align: center;
+  color: #333;
+}
+
+.data-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+}
+
+.data-table th,
+.data-table td {
+  border: 1px solid #ddd;
+  padding: 10px;
+}
+
+.data-row:hover {
+  background-color: #f2f2f2;
+}
+
+.profile-image {
+  width: 50px;
+  height: auto;
+  display: block;
+  margin: 0 auto;
+}
+
+.action-buttons {
+  text-align: center;
+}
+
+.edit-button,
+.delete-button {
+  padding: 5px 10px;
+  margin-right: 5px;
+  cursor: pointer;
+}
+
+.edit-button {
+  background-color: #1abc9c;
+  color: white;
+  border: none;
+}
+
+.delete-button {
+  background-color: #f44336;
+  color: white;
+  border: none;
+}
+
+.heading {
+  color: #333;
+  font-family: "Arial", sans-serif;
+  font-size: 28px;
+  text-align: center;
+  margin-top: 30px;
+  margin-bottom: 40px;
+  position: relative;
+}
+
+/* Pagination Styles */
+.pagination {
+  text-align: center;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+.page-number {
+  display: inline-block;
+  padding: 5px 10px;
+  margin-right: 5px;
+  cursor: pointer;
+  background-color: #ccc;
+  border-radius: 4px;
+  width: 30px;
+  text-align: center;
+  transition: background-color 0.3s ease;
+}
+
+.page-number.active {
+  background-color: #16a085;
+  color: #fff;
+}
+
+.page-number:hover {
+  background-color: #999;
+}
+
+/* Responsive Styles for Small Screen Devices */
+@media screen and (max-width: 768px) {
+  .data-box {
+    width: 90%;
+    margin: 0 auto;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    overflow: hidden;
+  }
+  .heading{
+    font-size: 18px;
+
+  }
+
+  .data-table {
+    width: 100%;
+    overflow-x: auto;
+  }
+
+  .data-table th,
+  .data-table td {
+    display: block;
+    text-align: left;
+    border: none;
+    padding: 8px 16px;
+  }
+
+  .data-row {
+    border-bottom: 1px solid #ddd;
+  }
+
+  .profile-image {
+    display: block;
+    margin: 0 auto;
+    max-width: 100px;
+    height: auto;
+  }
+
+  .action-buttons {
+    text-align: center;
+  }
+
+  .edit-button,
+  .delete-button {
+    display: inline-block;
+    padding: 5px 10px;
+    margin-right: 5px;
+    cursor: pointer;
+  }
+}
