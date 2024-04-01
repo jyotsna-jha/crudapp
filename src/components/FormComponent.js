@@ -1,4 +1,3 @@
-// FormComponent.js
 import React, { useState } from 'react';
 import './FormComponent.css';
 
@@ -15,10 +14,8 @@ const FormComponent = ({ setSubmittedData, submittedData }) => {
       country: 'Nepal' 
     },
     profilePicture: null,
-
   });
 
-  
   const [errors, setErrors] = useState({});
 
   const handleChange = (e) => {
@@ -68,6 +65,9 @@ const FormComponent = ({ setSubmittedData, submittedData }) => {
           ? ''
           : 'Phone number must be at least 7 digits';
         break;
+      case 'dob':
+        fieldErrors.dob = value.trim() ? '' : 'Date of Birth is required';
+        break;
       default:
         break;
     }
@@ -103,13 +103,11 @@ const FormComponent = ({ setSubmittedData, submittedData }) => {
 
     Object.keys(formData).forEach((fieldName) => {
       const value = formData[fieldName];
-      validateField(fieldName, value);
-    });
-
-    Object.values(errors).forEach((error) => {
-      if (error.length > 0) {
+      if (!value || (typeof value === 'object' && !Object.values(value).every(val => val.trim()))) {
+        fieldErrors[fieldName] = 'This field is required';
         formIsValid = false;
       }
+      validateField(fieldName, value);
     });
 
     setErrors(fieldErrors);
@@ -120,7 +118,6 @@ const FormComponent = ({ setSubmittedData, submittedData }) => {
     <div>
       <h1 className="app-heading">React CrudApp</h1> 
       <form onSubmit={handleSubmit} className="form-container">
-      
         <div className="form-group">
           <label>Name:</label>
           <input
@@ -160,6 +157,7 @@ const FormComponent = ({ setSubmittedData, submittedData }) => {
             onChange={handleChange}
             placeholder="DD-MM-YY"
           />
+          {errors.dob && <span className="error">{errors.dob}</span>}
         </div>
         <div className="form-group">
           <label>Profile Picture:</label>
