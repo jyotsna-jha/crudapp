@@ -2,17 +2,25 @@ import React, { useState } from 'react';
 import './SubmittedData.css';
 
 const SubmittedData = ({ data, onDelete, onEdit }) => {
-  const itemsPerPage = 5;
-  const [currentPage, setCurrentPage] = useState(1);
+  const [editedIndex, setEditedIndex] = useState(null);
+  const [editedName, setEditedName] = useState('');
 
-  const indexOfLastItem = currentPage * itemsPerPage;
-  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
-  const currentItems = data.slice(indexOfFirstItem, indexOfLastItem);
+  const handleEdit = (index) => {
+    setEditedIndex(index);
+    setEditedName(data[index].name);
+  };
 
-  const totalPages = Math.ceil(data.length / itemsPerPage);
+  const handleSave = () => {
+    const newData = [...data];
+    newData[editedIndex].name = editedName;
+    onEdit(newData);
+    setEditedIndex(null);
+    setEditedName('');
+  };
 
-  const changePage = (page) => {
-    setCurrentPage(page);
+  const handleCancelEdit = () => {
+    setEditedIndex(null);
+    setEditedName('');
   };
 
   return (
@@ -31,9 +39,19 @@ const SubmittedData = ({ data, onDelete, onEdit }) => {
           </tr>
         </thead>
         <tbody>
-          {currentItems.map((dataItem, index) => (
+          {data.map((dataItem, index) => (
             <tr key={index} className="data-row">
-              <td>{dataItem.name}</td>
+              <td>
+                {editedIndex === index ? (
+                  <input
+                    type="text"
+                    value={editedName}
+                    onChange={(e) => setEditedName(e.target.value)}
+                  />
+                ) : (
+                  dataItem.name
+                )}
+              </td>
               <td>{dataItem.email}</td>
               <td>{dataItem.phoneNumber}</td>
               <td>{dataItem.dob}</td>
@@ -48,29 +66,24 @@ const SubmittedData = ({ data, onDelete, onEdit }) => {
                 )}
               </td>
               <td className="action-buttons">
-                <button className="edit-button" onClick={() => onEdit(indexOfFirstItem + index)}>Edit</button>
-                <button className="delete-button" onClick={() => onDelete(indexOfFirstItem + index)}>Delete</button>
+                {editedIndex === index ? (
+                  <>
+                    <button className='save-button' onClick={handleSave}>Save</button>
+                    <button className='.cancel-button' onClick={handleCancelEdit}>Cancel</button>
+                  </>
+                ) : (
+                  <>
+                    <button className='edit-button' onClick={() => handleEdit(index)}>Edit</button>
+                    <button className='delete-button' onClick={() => onDelete(index)}>Delete</button>
+                  </>
+                )}
               </td>
             </tr>
           ))}
         </tbody>
       </table>
-      {totalPages > 1 && (
-        <div className="pagination">
-          {Array.from({ length: totalPages }, (_, i) => (
-            <span
-              key={i}
-              className={`page-number ${currentPage === i + 1 ? 'active' : ''}`}
-              onClick={() => changePage(i + 1)}
-            >
-              {i + 1}
-            </span>
-          ))}
-        </div>
-      )}
     </div>
   );
 };
 
 export default SubmittedData;
-

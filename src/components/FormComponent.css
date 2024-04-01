@@ -1,7 +1,7 @@
 .form-container {
   width: 90%;
   max-width: 400px;
-  margin: 20px auto 0;
+  margin: 25px auto 0;
   padding: 10px;
   border-radius: 6px;
   background-color: #ecf0f1; 
@@ -11,13 +11,13 @@
 .form-group {
   margin-bottom: 8px;
 }
-
 label {
   display: block;
   margin-bottom: 2px;
   font-weight: bold;
-  font-size: 12px;
-  color: #333;
+  font-size: 17px;
+  color: #444;
+  
 }
 
 input[type="text"],
@@ -32,12 +32,12 @@ textarea {
   background-color: #fff; 
   font-size: 12px;
   color: #333;
-  border: none; /* Removed border */
+  border: none; 
 }
 
 button {
   padding: 6px 10px;
-  background-color: #1abc9c; /* Red button color */
+  background-color: #1abc9c; 
   color: #fff;
   border: none;
   border-radius: 4px;
@@ -46,7 +46,7 @@ button {
 }
 
 button:hover {
-  background-color:#1abc9c; /* Darker red on hover */
+  background-color:#1abc9c; 
 }
 
 .error {
@@ -80,39 +80,26 @@ select {
   background-color: #fff;
   font-size: 12px;
   color: #333;
-  border: none; /* Removed border */
+  border: none; 
 }
 
 .app-heading {
-  color: #16a085; /* Green color */
-  font-family: "Arial", sans-serif; /* Cool font */
-  font-size: 36px; /* Cool font size */
-  text-align: center; /* Center the heading */
-  margin-top: 30px; /* Add margin at the top */
-  margin-bottom: 40px; /* Add more margin at the bottom */
-  position: relative; /* Required for pseudo-element */
+  color: #16a085; 
+  font-family: "Arial", sans-serif; 
+  font-size: 36px; 
+  text-align: center; 
+  margin-top: 30px; 
+  margin-bottom: 40px; 
+  position: relative; 
 }
 
 .app-heading::after {
   content: "";
   position: absolute;
-  bottom: -10px; /* Positioning */
-  left: 50%; /* Positioning */
-  width: 80px; /* Width of the background */
-  height: 5px; /* Height of the background */
-  background-color: #000000; /* Black color */
-  transform: translateX(-50%); /* Centering */
-}
-.address-fields {
-  display: flex;
-  gap: 10px; /* Increase the gap between fields */
-}
-
-input[name^="address"] {
-  flex: 1; /* Make the input fields flexible to distribute space */
-  margin-right: 10px; /* Add some margin to the right of each input field */
-}
-
-input[name^="address"]:last-child {
-  margin-right: 0; /* Remove margin from the last input field */
+  bottom: -10px; 
+  left: 50%; 
+  width: 80px; 
+  height: 5px; 
+  background-color: #000000; 
+  transform: translateX(-50%); 
 }

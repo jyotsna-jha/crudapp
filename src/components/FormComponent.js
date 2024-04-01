@@ -17,6 +17,8 @@ const FormComponent = ({ setSubmittedData, submittedData }) => {
     profilePicture: null,
 
   });
+
+  
   const [errors, setErrors] = useState({});
 
   const handleChange = (e) => {
@@ -116,7 +118,7 @@ const FormComponent = ({ setSubmittedData, submittedData }) => {
 
   return (
     <div>
-      <h1 className="app-heading">React CrudApp</h1> {/* Cool heading */}
+      <h1 className="app-heading">React CrudApp</h1> 
       <form onSubmit={handleSubmit} className="form-container">
       
         <div className="form-group">
