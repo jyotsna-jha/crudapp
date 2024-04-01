@@ -50,7 +50,8 @@ button:hover {
 }
 
 .error {
-  font-size: 10px;
+  font-size: 12px;
+  color:#e74c3c;
   margin-top: 1px;
 }
 

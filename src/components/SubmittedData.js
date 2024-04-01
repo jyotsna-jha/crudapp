@@ -4,6 +4,8 @@ import './SubmittedData.css';
 const SubmittedData = ({ data, onDelete, onEdit }) => {
   const [editedIndex, setEditedIndex] = useState(null);
   const [editedName, setEditedName] = useState('');
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 5;
 
   const handleEdit = (index) => {
     setEditedIndex(index);
@@ -23,6 +25,15 @@ const SubmittedData = ({ data, onDelete, onEdit }) => {
     setEditedName('');
   };
 
+  const indexOfLastItem = currentPage * itemsPerPage;
+  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+  const currentItems = data.slice(indexOfFirstItem, indexOfLastItem);
+  const totalPages = Math.ceil(data.length / itemsPerPage);
+
+  const changePage = (page) => {
+    setCurrentPage(page);
+  };
+
   return (
     <div className="table-container">
       <h2 className="heading">Submitted Data</h2> 
@@ -39,10 +50,10 @@ const SubmittedData = ({ data, onDelete, onEdit }) => {
           </tr>
         </thead>
         <tbody>
-          {data.map((dataItem, index) => (
+          {currentItems.map((dataItem, index) => (
             <tr key={index} className="data-row">
               <td>
-                {editedIndex === index ? (
+                {editedIndex === indexOfFirstItem + index ? (
                   <input
                     type="text"
                     value={editedName}
@@ -66,15 +77,15 @@ const SubmittedData = ({ data, onDelete, onEdit }) => {
                 )}
               </td>
               <td className="action-buttons">
-                {editedIndex === index ? (
+                {editedIndex === indexOfFirstItem + index ? (
                   <>
                     <button className='save-button' onClick={handleSave}>Save</button>
-                    <button className='.cancel-button' onClick={handleCancelEdit}>Cancel</button>
+                    <button className='cancel-button' onClick={handleCancelEdit}>Cancel</button>
                   </>
                 ) : (
                   <>
-                    <button className='edit-button' onClick={() => handleEdit(index)}>Edit</button>
-                    <button className='delete-button' onClick={() => onDelete(index)}>Delete</button>
+                    <button className='edit-button' onClick={() => handleEdit(indexOfFirstItem + index)}>Edit</button>
+                    <button className='delete-button' onClick={() => onDelete(indexOfFirstItem + index)}>Delete</button>
                   </>
                 )}
               </td>
@@ -82,6 +93,19 @@ const SubmittedData = ({ data, onDelete, onEdit }) => {
           ))}
         </tbody>
       </table>
+      {totalPages > 1 && (
+        <div className="pagination">
+          {Array.from({ length: totalPages }, (_, i) => (
+            <button
+              key={i}
+              className={`page-number ${currentPage === i + 1 ? 'active' : ''}`}
+              onClick={() => changePage(i + 1)}
+            >
+              {i + 1}
+            </button>
+          ))}
+        </div>
+      )}
     </div>
   );
 };
