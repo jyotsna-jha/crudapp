@@ -1,17 +1,17 @@
-import React, { useState } from 'react';
-import './FormComponent.css';
+import React, { useState } from "react";
+import "./FormComponent.css";
 
 const FormComponent = ({ setSubmittedData, submittedData }) => {
   const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    phoneNumber: '',
-    dob: '',
+    name: "",
+    email: "",
+    phoneNumber: "",
+    dob: "",
     address: {
-      city: '',
-      district: '',
-      province: '1', 
-      country: 'Nepal' 
+      city: "",
+      district: "",
+      province: "1",
+      country: "Nepal",
     },
     profilePicture: null,
   });
@@ -21,27 +21,27 @@ const FormComponent = ({ setSubmittedData, submittedData }) => {
   const handleChange = (e) => {
     const { name, value, type } = e.target;
 
-    if (type === 'file') {
+    if (type === "file") {
       const file = e.target.files[0];
-      if (file && file.type !== 'image/png') {
-        setErrors({ ...errors, profilePicture: 'Only PNG images are allowed' });
+      if (file && file.type !== "image/png") {
+        setErrors({ ...errors, profilePicture: "Only PNG images are allowed" });
       } else {
-        setErrors({ ...errors, profilePicture: '' });
+        setErrors({ ...errors, profilePicture: "" });
         setFormData({ ...formData, profilePicture: file });
       }
-    } else if (name.startsWith('address.')) {
-      const addressField = name.split('.')[1];
+    } else if (name.startsWith("address.")) {
+      const addressField = name.split(".")[1];
       setFormData({
         ...formData,
         address: {
           ...formData.address,
-          [addressField]: value
-        }
+          [addressField]: value,
+        },
       });
     } else {
       setFormData({
         ...formData,
-        [name]: value
+        [name]: value,
       });
 
       validateField(name, value);
@@ -52,21 +52,21 @@ const FormComponent = ({ setSubmittedData, submittedData }) => {
     let fieldErrors = { ...errors };
 
     switch (fieldName) {
-      case 'name':
-        fieldErrors.name = value.trim() ? '' : 'Name is required';
+      case "name":
+        fieldErrors.name = value.trim() ? "" : "Name is required";
         break;
-      case 'email':
+      case "email":
         fieldErrors.email = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value)
-          ? ''
-          : 'Invalid email format';
+          ? ""
+          : "Invalid email format";
         break;
-      case 'phoneNumber':
+      case "phoneNumber":
         fieldErrors.phoneNumber = /^\d{7,}$/.test(value)
-          ? ''
-          : 'Phone number must be at least 7 digits';
+          ? ""
+          : "Phone number must be at least 7 digits";
         break;
-      case 'dob':
-        fieldErrors.dob = value.trim() ? '' : 'Date of Birth is required';
+      case "dob":
+        fieldErrors.dob = value.trim() ? "" : "Date of Birth is required";
         break;
       default:
         break;
@@ -81,19 +81,19 @@ const FormComponent = ({ setSubmittedData, submittedData }) => {
     if (isValid) {
       setSubmittedData([...submittedData, formData]);
       setFormData({
-        name: '',
-        email: '',
-        phoneNumber: '',
-        dob: '',
+        name: "",
+        email: "",
+        phoneNumber: "",
+        dob: "",
         profilePicture: null,
         address: {
-          city: '',
-          district: '',
-          province: '1', // Default to province 1
-          country: 'Nepal' // Default country
-        }
+          city: "",
+          district: "",
+          province: "1",
+          country: "Nepal",
+        },
       });
-      window.alert('Form submitted successfully!');
+      window.alert("Form submitted successfully!");
     }
   };
 
@@ -103,8 +103,12 @@ const FormComponent = ({ setSubmittedData, submittedData }) => {
 
     Object.keys(formData).forEach((fieldName) => {
       const value = formData[fieldName];
-      if (!value || (typeof value === 'object' && !Object.values(value).every(val => val.trim()))) {
-        fieldErrors[fieldName] = 'This field is required';
+      if (
+        !value ||
+        (typeof value === "object" &&
+          !Object.values(value).every((val) => val.trim()))
+      ) {
+        fieldErrors[fieldName] = "This field is required";
         formIsValid = false;
       }
       validateField(fieldName, value);
@@ -116,7 +120,7 @@ const FormComponent = ({ setSubmittedData, submittedData }) => {
 
   return (
     <div>
-      <h1 className="app-heading">React CrudApp</h1> 
+      <h1 className="app-heading">React CrudApp</h1>
       <form onSubmit={handleSubmit} className="form-container">
         <div className="form-group">
           <label>Name:</label>
@@ -146,7 +150,9 @@ const FormComponent = ({ setSubmittedData, submittedData }) => {
             value={formData.phoneNumber}
             onChange={handleChange}
           />
-          {errors.phoneNumber && <span className="error">{errors.phoneNumber}</span>}
+          {errors.phoneNumber && (
+            <span className="error">{errors.phoneNumber}</span>
+          )}
         </div>
         <div className="form-group">
           <label>DOB:</label>
@@ -167,7 +173,9 @@ const FormComponent = ({ setSubmittedData, submittedData }) => {
             name="profilePicture"
             onChange={handleChange}
           />
-          {errors.profilePicture && <span className="error">{errors.profilePicture}</span>}
+          {errors.profilePicture && (
+            <span className="error">{errors.profilePicture}</span>
+          )}
         </div>
         <div className="form-group">
           <label>Address:</label>

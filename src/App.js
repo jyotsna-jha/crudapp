@@ -14,9 +14,9 @@ const Homepage = () => {
     setSubmittedData(newData);
   };
 
-  const handleEdit = (index) => {
-    // Your edit logic goes here
-  };
+   const handleEdit = (index) => {
+    
+  }; 
 
   return (
     <div>

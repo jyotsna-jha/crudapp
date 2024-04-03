@@ -4,25 +4,36 @@ import './SubmittedData.css';
 const SubmittedData = ({ data, onDelete, onEdit }) => {
   const [editedIndex, setEditedIndex] = useState(null);
   const [editedName, setEditedName] = useState('');
+  const [editedEmail, setEditedEmail] = useState('');
+  const[editedPhone,setEditedPhone]=useState('');
+
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 5;
 
   const handleEdit = (index) => {
     setEditedIndex(index);
     setEditedName(data[index].name);
+    setEditedEmail(data[index].email); 
+    setEditedPhone(data[index].phoneNumber);
   };
 
   const handleSave = () => {
     const newData = [...data];
     newData[editedIndex].name = editedName;
+    newData[editedIndex].email = editedEmail; 
+    newData[editedIndex].phoneNumber=editedPhone;
     onEdit(newData);
     setEditedIndex(null);
     setEditedName('');
+    setEditedEmail('');
+    setEditedPhone('');
   };
 
   const handleCancelEdit = () => {
     setEditedIndex(null);
     setEditedName('');
+    setEditedPhone('');
+    setEditedEmail('');
   };
 
   const indexOfLastItem = currentPage * itemsPerPage;
@@ -63,8 +74,29 @@ const SubmittedData = ({ data, onDelete, onEdit }) => {
                   dataItem.name
                 )}
               </td>
-              <td>{dataItem.email}</td>
-              <td>{dataItem.phoneNumber}</td>
+              <td>
+  {editedIndex === indexOfFirstItem + index ? (
+    <input
+      type="email" 
+      value={editedEmail} 
+      onChange={(e) => setEditedEmail(e.target.value)} 
+    />
+  ) : (
+    dataItem.email
+  )}
+</td>
+ 
+                <td>
+                {editedIndex === indexOfFirstItem + index ? (
+                  <input
+                    type="text"
+                    value={editedPhone}
+                    onChange={(e) => setEditedPhone(e.target.value)}
+                  />
+                ) : (
+                  dataItem.phoneNumber
+                )}
+              </td>
               <td>{dataItem.dob}</td>
               <td>{`${dataItem.address.city}, ${dataItem.address.district}, ${dataItem.address.province}, ${dataItem.address.country}`}</td>
               <td>
